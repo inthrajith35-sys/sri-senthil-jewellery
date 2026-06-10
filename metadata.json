@@ -1,0 +1,6 @@
+{
+  "name": "Sri Senthil Jewellery",
+  "description": "Sleek, premium, and modern jewellery showroom website featuring live gold and silver rate updates, luxury gold and silver sections, bento collections, and WhatsApp enquiries.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}
