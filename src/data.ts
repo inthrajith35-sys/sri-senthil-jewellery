@@ -3,8 +3,6 @@ export interface Product {
   title: string;
   category: string;
   image: string;
-  purity: string;
-  weight: string;
   type: "gold" | "silver";
   description: string;
 }
@@ -40,7 +38,7 @@ export const COLLECTIONS: Collection[] = [
     title: "Bridal Collection",
     image: "/collection-images/bridal-antique-necklace-set.webp",
     description: "Royal, heavy-crafted masterpieces designed for your most precious day. Elaborate chokers, long harams, and matching accessories.",
-    tag: "Exquisite Purity"
+    tag: "Exquisite Craft"
   },
   {
     id: "daily-wear",
@@ -67,7 +65,7 @@ export const COLLECTIONS: Collection[] = [
     id: "gift",
     title: "Gift Collection",
     image: "/collection-images/gift-collection.webp",
-    description: "Perfect tokens of love. Gold coins, silver frames, and premium gift articles featuring 100% certified hallmarking.",
+    description: "Perfect tokens of love. Gold coins, silver frames, and premium gift articles for every celebration.",
     tag: "Tokens of Love"
   }
 ];
@@ -78,8 +76,6 @@ export const GOLD_PRODUCTS: Product[] = [
     title: "Elegant Royal Haram",
     category: "Bridal Gold Jewellery",
     image: "https://images.unsplash.com/photo-1535632066927-ab7c9ab60908?auto=format&fit=crop&q=80&w=600",
-    purity: "22K (916 BIS Hallmarked)",
-    weight: "48.5g",
     type: "gold",
     description: "A breathtaking traditional gold chain with fine hand-carved details and elegant dangling beads."
   },
@@ -88,8 +84,6 @@ export const GOLD_PRODUCTS: Product[] = [
     title: "Classic Mango Necklace",
     category: "Bridal Gold Jewellery",
     image: "https://images.unsplash.com/photo-1599643478518-a784e5dc4c8f?auto=format&fit=crop&q=80&w=600",
-    purity: "22K (916 BIS Hallmarked)",
-    weight: "32.0g",
     type: "gold",
     description: "Traditional south Indian manga malai style chain embedded with brilliant synthetic rubies."
   },
@@ -98,8 +92,6 @@ export const GOLD_PRODUCTS: Product[] = [
     title: "Sovereign Gold Chain",
     category: "Gold Chains",
     image: "https://images.unsplash.com/photo-1515562141207-7a88fb7ce338?auto=format&fit=crop&q=80&w=600",
-    purity: "22K (916 BIS Hallmarked)",
-    weight: "16.2g",
     type: "gold",
     description: "Unisex classic rope design gold chain, perfect for everyday use and festive matching."
   },
@@ -108,8 +100,6 @@ export const GOLD_PRODUCTS: Product[] = [
     title: "Classic Bridal Bangles (Set of 4)",
     category: "Gold Bangles",
     image: "https://images.unsplash.com/photo-1611591437281-460bfbe1220a?auto=format&fit=crop&q=80&w=600",
-    purity: "22K (916 BIS Hallmarked)",
-    weight: "38.0g",
     type: "gold",
     description: "Antique finished broad bangles highlighting Indian artisan mastery and filigree carving."
   },
@@ -118,8 +108,6 @@ export const GOLD_PRODUCTS: Product[] = [
     title: "Jhumka Drop Earrings",
     category: "Gold Earrings",
     image: "https://images.unsplash.com/photo-1635767798638-3e25273a8236?auto=format&fit=crop&q=80&w=600",
-    purity: "22K (916 BIS Hallmarked)",
-    weight: "8.4g",
     type: "gold",
     description: "Gorgeous umbrella-shaped traditional Jhumkas with soft golden hangings and intricate lining."
   },
@@ -128,8 +116,6 @@ export const GOLD_PRODUCTS: Product[] = [
     title: "Imperial Ruby Ring",
     category: "Gold Rings",
     image: "https://images.unsplash.com/photo-1605100804763-247f67b3557e?auto=format&fit=crop&q=80&w=600",
-    purity: "22K (916 BIS Hallmarked)",
-    weight: "6.5g",
     type: "gold",
     description: "Majestic floral ring setting centering an exquisite red ruby stone bordered by gold petals."
   },
@@ -138,8 +124,6 @@ export const GOLD_PRODUCTS: Product[] = [
     title: "Modern Gold Studs",
     category: "Gold Earrings",
     image: "/gold-products/modern-gold-studs.webp",
-    purity: "22K (916 BIS Hallmarked)",
-    weight: "3.2g",
     type: "gold",
     description: "Star-patterned daily wear gold earrings, extremely comfortable and highly polished."
   },
@@ -148,8 +132,6 @@ export const GOLD_PRODUCTS: Product[] = [
     title: "Royal Peacock Ring",
     category: "Gold Rings",
     image: "https://images.unsplash.com/photo-1603561591411-07134e71a2a9?auto=format&fit=crop&q=80&w=600",
-    purity: "18K (750 Gold Purity)",
-    weight: "4.8g",
     type: "gold",
     description: "Contemporary 18C dual-tone gold ring depicting a magnificent peacock pattern with glossy work."
   }
@@ -161,8 +143,6 @@ export const SILVER_PRODUCTS: Product[] = [
     title: "Antique Krishna Silver Idol",
     category: "Silver Gift Items",
     image: "/silver-products/silver-krishna-idol.webp",
-    purity: "92.5 Sterling Silver",
-    weight: "120.0g",
     type: "silver",
     description: "A detailed Krishna idol with ornate temple arch work, peacock motifs, and antique oxidised finish."
   },
@@ -171,8 +151,6 @@ export const SILVER_PRODUCTS: Product[] = [
     title: "Traditional Silver Kuthu Vilakku Pair",
     category: "Silver Pooja Items",
     image: "/silver-products/silver-lamp-pair.jpg",
-    purity: "99.0% Pure Silver",
-    weight: "180.0g",
     type: "silver",
     description: "Elegant paired pooja lamps with polished silver shine and auspicious top detailing."
   },
@@ -181,8 +159,6 @@ export const SILVER_PRODUCTS: Product[] = [
     title: "Carved Silver Kalasam Pot",
     category: "Silver Pooja Items",
     image: "/silver-products/silver-kalasam.jpeg",
-    purity: "99.0% Pure Silver",
-    weight: "95.0g",
     type: "silver",
     description: "Hand-carved silver kalasam with floral engraving, ideal for pooja rituals and gifting."
   },
@@ -191,8 +167,6 @@ export const SILVER_PRODUCTS: Product[] = [
     title: "Peacock Deepam Silver Lamps",
     category: "Silver Pooja Items",
     image: "/silver-products/silver-peacock-lamps.webp",
-    purity: "99.0% Pure Silver",
-    weight: "220.0g",
     type: "silver",
     description: "Majestic silver deepam pair with peacock and elephant sculptural details for festive pooja decor."
   },
@@ -201,8 +175,6 @@ export const SILVER_PRODUCTS: Product[] = [
     title: "Sterling Ring & Pendant Selection",
     category: "Silver Rings",
     image: "/silver-products/silver-rings-pendants.jpeg",
-    purity: "92.5 Sterling Silver",
-    weight: "5.5g",
     type: "silver",
     description: "Bright modern sterling silver rings, pendants, and lightweight pieces for daily wear."
   },
@@ -211,8 +183,6 @@ export const SILVER_PRODUCTS: Product[] = [
     title: "Antique Floral Silver Bowl",
     category: "Silver Gift Items",
     image: "/silver-products/silver-floral-bowl.jpeg",
-    purity: "92.5 Sterling Silver",
-    weight: "85.0g",
     type: "silver",
     description: "Decorative silver bowl with raised floral carving and elephant side handles."
   },
@@ -221,8 +191,6 @@ export const SILVER_PRODUCTS: Product[] = [
     title: "Antique Bridal Silver Necklace",
     category: "Silver Necklaces",
     image: "/silver-products/silver-necklace-set.jpeg",
-    purity: "92.5 Sterling Silver",
-    weight: "145.0g",
     type: "silver",
     description: "Statement antique silver necklace with temple-inspired motifs and ruby accent stones."
   },
@@ -231,8 +199,6 @@ export const SILVER_PRODUCTS: Product[] = [
     title: "Minimal Silver Chain & Bracelet",
     category: "Silver Chains",
     image: "/silver-products/silver-chain-bracelet.webp",
-    purity: "92.5 Sterling Silver",
-    weight: "22.5g",
     type: "silver",
     description: "Clean sterling silver chain and bracelet combo with a refined contemporary finish."
   }

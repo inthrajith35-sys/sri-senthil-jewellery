@@ -77,7 +77,7 @@ export default function App() {
   const triggerWhatsAppEnquiry = (product: Product, customMsg = "") => {
     const messageText = customMsg 
       ? customMsg 
-      : `Hello Sri Senthil Jewellery, I am interested in seeking more details about "${product.title}" (${product.category}, Weight: ${product.weight}). Please guide me with showroom pricing and availability.`;
+      : `Hello Sri Senthil Jewellery, I am interested in seeking more details about "${product.title}" (${product.category}). Please guide me with showroom pricing and availability.`;
     
     const encodeText = encodeURIComponent(messageText);
     const whatsappUrl = `https://wa.me/${WHATSAPP_NUMBER}?text=${encodeText}`;
@@ -95,7 +95,6 @@ export default function App() {
       `*Phone:* ${enquiryPhone}\n` +
       `*Product:* ${enquiryProduct.title}\n` +
       `*Category:* ${enquiryProduct.category}\n` +
-      `*Weight:* ${enquiryProduct.weight}\n` +
       `*Note:* ${enquiryCustomText || "Interested in viewing and showroom pricing."}`;
       
     setEnquirySuccess(true);
@@ -596,10 +595,6 @@ export default function App() {
                           <CheckCircle className="w-3.5 h-3.5 text-c-gold" />
                           <span>Gold</span>
                         </div>
-                        {/* Pure Weight banner */}
-                        <div className="absolute bottom-2.5 right-2.5 bg-white text-c-black py-1 px-2.5 text-[10px] font-semibold tracking-wider rounded-none border border-c-gold-light/20 shadow-xs">
-                          {product.weight}
-                        </div>
                       </div>
 
                       {/* Info description block */}
@@ -748,10 +743,6 @@ export default function App() {
                           <CheckCircle className="w-3.5 h-3.5 text-c-gold" />
                           <span>Silver</span>
                         </div>
-                        {/* Pure Weight banner */}
-                        <div className="absolute bottom-2.5 right-2.5 bg-white text-c-black py-1 px-2.5 text-[10px] font-semibold tracking-wider rounded-none border border-c-gold-light/20 shadow-xs">
-                          {product.weight}
-                        </div>
                       </div>
 
                       {/* Info description block */}
@@ -772,7 +763,7 @@ export default function App() {
                         id={`enquire-silver-${product.id}`}
                         onClick={() => {
                           setEnquiryProduct(product);
-                          setEnquiryCustomText(`Hello, interested in ordering ${product.title} from your Silver Collection. Kindly share weight and showroom pricing details.`);
+                          setEnquiryCustomText(`Hello, interested in ordering ${product.title} from your Silver Collection. Kindly share showroom pricing details.`);
                         }}
                         className="flex-1 bg-c-black hover:bg-c-gold text-white hover:text-white text-[10px] uppercase tracking-[1.5px] font-semibold py-3 text-center border border-c-black hover:border-c-gold transition duration-250 rounded-none focus:outline-none"
                       >
@@ -1277,7 +1268,7 @@ export default function App() {
                   />
                   <div>
                     <h4 className="font-serif text-sm font-semibold text-c-black">{enquiryProduct.title}</h4>
-                    <p className="text-[10px] text-gray-500 font-sans mt-0.5 font-normal">Category: {enquiryProduct.category} | Weight: {enquiryProduct.weight}</p>
+                    <p className="text-[10px] text-gray-500 font-sans mt-0.5 font-normal">Category: {enquiryProduct.category}</p>
                   </div>
                 </div>
 
