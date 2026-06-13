@@ -1,4 +1,4 @@
-﻿import React, { useState, useEffect } from "react";
+﻿import React, { useState } from "react";
 import { motion, AnimatePresence } from "motion/react";
 import {
   Sparkles,
@@ -10,13 +10,11 @@ import {
   Menu,
   X,
   ChevronRight,
-  TrendingUp,
   Award,
   ShieldCheck,
   Search,
   Check,
-  ArrowUpRight,
-  HelpCircle
+  ArrowUpRight
 } from "lucide-react";
 import {
   GOLD_CATEGORIES,
@@ -27,29 +25,9 @@ import {
   Product
 } from "./data";
 
-interface RateData {
-  gold24k: number;
-  gold22k: number;
-  gold18k: number;
-  silver: number;
-  lastUpdated: string;
-  source: string;
-}
-
 export default function App() {
   // Mobile menu control
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
-
-  // Live rates state
-  const [rates, setRates] = useState<RateData | null>(null);
-  const [loadingRates, setLoadingRates] = useState(true);
-  const [rateError, setRateError] = useState<string | null>(null);
-  const [lastRefreshedAt, setLastRefreshedAt] = useState<Date>(new Date());
-  const [isRefreshing, setIsRefreshing] = useState(false);
-
-  // Gold/silver pricing view weight toggle
-  const [goldWeightUnit, setGoldWeightUnit] = useState<"gram" | "sovereign">("gram"); // 1g vs 8g (Pavan)
-  const [silverWeightUnit, setSilverWeightUnit] = useState<"gram" | "kg">("gram"); // 1g vs 1kg
 
   // Selected categories for filtering
   const [selectedGoldCategory, setSelectedGoldCategory] = useState<string>("All");
@@ -65,56 +43,11 @@ export default function App() {
   const [enquiryCustomText, setEnquiryCustomText] = useState("");
   const [enquirySuccess, setEnquirySuccess] = useState(false);
 
-  // Notification for copy rate/actions
+  // Notification for copy/actions
   const [notification, setNotification] = useState<string | null>(null);
 
   const CONTACT_NUMBER = "+917418267460";
   const WHATSAPP_NUMBER = "919362267460";
-
-  // Fetch rates on mount and auto-refresh every 5 minutes
-  const fetchLiveRates = async (showSpinner = false) => {
-    if (showSpinner) setIsRefreshing(true);
-    if (!rates) setLoadingRates(true);
-
-    console.log("[rates] Frontend requesting GET /api/rates", { showSpinner });
-
-    try {
-      setRateError(null);
-      const response = await fetch("/api/rates");
-      console.log("[rates] Backend /api/rates response status", response.status);
-
-      if (!response.ok) {
-        const errorPayload = await response.json().catch(() => null);
-        console.error("[rates] Backend /api/rates error payload", errorPayload);
-        throw new Error(errorPayload?.details || errorPayload?.error || "Unable to retrieve fresh metal rates at this time.");
-      }
-
-      const data = await response.json();
-      console.log("[rates] Live rates loaded successfully", data);
-      setRates(data);
-      setLastRefreshedAt(new Date());
-    } catch (err: any) {
-      console.error("[rates] Frontend failed to load live rates", err);
-      setRateError(err.message || "Failed to load live rates");
-    } finally {
-      setLoadingRates(false);
-      setIsRefreshing(false);
-    }
-  };
-
-  useEffect(() => {
-    fetchLiveRates();
-    const interval = setInterval(() => {
-      fetchLiveRates(true);
-    }, 5 * 60 * 1000); // 5 minutes
-    return () => clearInterval(interval);
-  }, []);
-
-  const formatRate = (value: number | undefined, multiplier = 1) => {
-    if (loadingRates && !rates) return "Loading...";
-    if (typeof value !== "number") return "Unavailable";
-    return `₹${Math.round(value * multiplier).toLocaleString("en-IN")}`;
-  };
 
   const showNotification = (message: string) => {
     setNotification(message);
@@ -144,7 +77,7 @@ export default function App() {
   const triggerWhatsAppEnquiry = (product: Product, customMsg = "") => {
     const messageText = customMsg 
       ? customMsg 
-      : `Hello Sri Senthil Jewellery, I am interested in seeking more details about "${product.title}" (${product.category}, Weight: ${product.weight}, Purity: ${product.purity}). Please guide me with current pricing and availability.`;
+      : `Hello Sri Senthil Jewellery, I am interested in seeking more details about "${product.title}" (${product.category}, Weight: ${product.weight}, Purity: ${product.purity}). Please guide me with showroom pricing and availability.`;
     
     const encodeText = encodeURIComponent(messageText);
     const whatsappUrl = `https://wa.me/${WHATSAPP_NUMBER}?text=${encodeText}`;
@@ -164,7 +97,7 @@ export default function App() {
       `*Category:* ${enquiryProduct.category}\n` +
       `*Weight:* ${enquiryProduct.weight}\n` +
       `*Purity:* ${enquiryProduct.purity}\n` +
-      `*Note:* ${enquiryCustomText || "Interested in viewing/pricing."}`;
+      `*Note:* ${enquiryCustomText || "Interested in viewing and showroom pricing."}`;
       
     setEnquirySuccess(true);
     setTimeout(() => {
@@ -231,14 +164,13 @@ export default function App() {
       {/* Outer elegant border for desktop showroom layout */}
       <div className="hidden lg:block fixed inset-4 border border-c-gold-light/15 pointer-events-none z-30" />
 
-      {/* Top Banner: Rates teaser */}
+      {/* Top Banner */}
       <div className="bg-c-black text-c-ivory px-4 py-2.5 text-center text-[10px] tracking-[3px] uppercase flex items-center justify-center space-x-4 border-b border-c-gold-light/10">
         <Sparkles className="w-3.5 h-3.5 text-gold-300 animate-pulse" />
         <span>100% BIS Hallmarked Pure Gold Since 1989</span>
         <span className="hidden md:inline text-gold-300">•</span>
-        <span className="hidden md:inline">Today&apos;s Live Gold Rate: </span>
-        <span className="text-gold-300 font-semibold">{formatRate(rates?.gold22k)}/g (22K)</span>
-        <span className="text-gold-300">•</span>
+        <span className="hidden md:inline text-gold-300 font-semibold">Trusted Gold & Silver Collections</span>
+        <span className="hidden md:inline text-gold-300">•</span>
         <span>Komarapalayam Showroom</span>
       </div>
 
@@ -260,9 +192,6 @@ export default function App() {
           <nav className="hidden lg:flex items-center space-x-8 font-sans text-[11px] tracking-[2px] uppercase font-normal">
             <a href="#hero-showroom-section" className="text-c-gold hover:text-c-gold transition-colors border-b border-c-gold pb-1 font-medium">
               Home
-            </a>
-            <a href="#live-rates-section" className="text-c-black hover:text-c-gold transition-colors pb-1">
-              Live Rate
             </a>
             <a href="#gold-section" className="text-c-black hover:text-c-gold transition-colors pb-1">
               Gold
@@ -361,14 +290,6 @@ export default function App() {
                   >
                     <span>Home</span>
                     <ChevronRight className="w-4 h-4 text-c-gold" />
-                  </a>
-                  <a
-                    href="#live-rates-section"
-                    onClick={() => setMobileMenuOpen(false)}
-                    className="text-c-black hover:text-c-gold flex items-center justify-between"
-                  >
-                    <span>Live Gold/Silver Rate</span>
-                    <ChevronRight className="w-4 h-4 text-gray-400" />
                   </a>
                   <a
                     href="#gold-section"
@@ -473,7 +394,7 @@ export default function App() {
               Experience the finest selection of premium gold and silver ornaments, where traditional artistry meets contemporary elegance.
             </p>
 
-            {/* Navigation and Rate Checking CTAs */}
+            {/* Navigation CTAs */}
             <div className="flex flex-wrap items-center gap-4">
               <a
                 id="hero-view-gold-btn"
@@ -483,11 +404,11 @@ export default function App() {
                 View Collections
               </a>
               <a
-                id="hero-check-rates-btn"
-                href="#live-rates-section"
+                id="hero-contact-btn"
+                href="#contact-section"
                 className="inline-block bg-transparent text-c-gold hover:bg-c-gold hover:text-white text-[11px] uppercase tracking-[2px] font-normal px-8 py-4 border border-c-gold transition-all rounded-none"
               >
-                Today&apos;s Rate
+                Visit Showroom
               </a>
             </div>
 
@@ -556,282 +477,6 @@ export default function App() {
         </div>
       </div>
 
-      {/* Live Gold & Silver Rate Section */}
-      <section id="live-rates-section" className="py-20 bg-c-ivory relative border-b border-c-gold-light/15">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          
-          {/* Section Header */}
-          <div className="text-center max-w-xl mx-auto mb-14">
-            <span className="text-[11px] tracking-[4px] text-c-gold font-semibold uppercase block mb-3">
-              Market Intelligence
-            </span>
-            <h2 className="font-serif text-3xl sm:text-4xl font-light tracking-tight text-c-black inline-block relative pb-4 uppercase">
-              Today&apos;s Live Metal Rates
-              <div className="absolute bottom-0 left-12 right-12 h-[1px] bg-c-gold opacity-50" />
-            </h2>
-            <p className="text-gray-550 font-sans text-xs sm:text-sm mt-4 tracking-wide">
-              Real-time gold and silver spot prices directly connected. Updated continuously with transparent rates.
-            </p>
-          </div>
-
-          {/* Alert Message for API failure */}
-          {rateError && (
-            <div className="max-w-2xl mx-auto mb-8 bg-red-50/50 border border-red-200/50 p-4 rounded-none flex items-start space-x-3 text-red-900">
-              <HelpCircle className="w-5 h-5 text-red-500 shrink-0 mt-0.5" />
-              <div className="flex-1">
-                <p className="text-xs font-semibold uppercase tracking-wider font-sans">Live Connection Delayed</p>
-                <p className="text-xs text-red-800/90 mt-1">
-                  Live rates could not be loaded. {rateError}
-                </p>
-              </div>
-              <button
-                id="retry-rates-fetch"
-                onClick={() => fetchLiveRates(true)}
-                className="text-[10px] bg-white hover:bg-red-50 text-red-950 font-normal uppercase tracking-wider px-3.5 py-1.5 border border-red-350 rounded-none transition"
-              >
-                Retry Link
-              </button>
-            </div>
-          )}
-
-          {/* Rate Cards Grid */}
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 max-w-5xl mx-auto">
-            
-            {/* GOLD CARD */}
-            <motion.div
-              whileHover={{ y: -3 }}
-              transition={{ duration: 0.3 }}
-              className="bg-white border border-c-gold-light/45 p-6 sm:p-8 rounded-none relative overflow-hidden"
-            >
-              <div className="absolute top-0 left-0 right-0 h-1 gold-shimmer" />
-              
-              <div className="flex items-center justify-between mb-8">
-                <div className="flex items-center space-x-3">
-                  <div className="w-10 h-10 rounded-none bg-c-ivory flex items-center justify-center border border-c-gold-light/25">
-                    <Sparkles className="w-4 h-4 text-c-gold" />
-                  </div>
-                  <div>
-                    <h3 className="font-serif text-sm tracking-[2px] text-c-black font-semibold uppercase">GOLD RATE</h3>
-                    <p className="text-[10px] text-gray-400 font-sans uppercase tracking-[1px] mt-0.5">BIS 916 Hallmark Standard</p>
-                  </div>
-                </div>
-
-                {/* Weight Unit Selector Toggle */}
-                <div className="flex bg-c-ivory p-1 rounded-none border border-c-gold-light/10">
-                  <button
-                    id="gold-unit-gram"
-                    onClick={() => setGoldWeightUnit("gram")}
-                    className={`px-3 py-1.5 text-[9px] uppercase font-semibold tracking-[1px] rounded-none transition-all ${
-                      goldWeightUnit === "gram" 
-                        ? "bg-c-black text-white"
-                        : "text-gray-500 hover:text-c-black"
-                    }`}
-                  >
-                    1 Gram
-                  </button>
-                  <button
-                    id="gold-unit-sovereign"
-                    onClick={() => setGoldWeightUnit("sovereign")}
-                    className={`px-3 py-1.5 text-[9px] uppercase font-semibold tracking-[1px] rounded-none transition-all ${
-                      goldWeightUnit === "sovereign" 
-                        ? "bg-c-black text-white"
-                        : "text-gray-500 hover:text-c-black"
-                    }`}
-                  >
-                    8g (Pavan)
-                  </button>
-                </div>
-              </div>
-
-              {/* Gold Carat details */}
-              <div className="space-y-4">
-                {/* 24 Carat Gold */}
-                <div className="flex items-center justify-between py-3.5 border-b border-dashed border-gray-150">
-                  <div className="flex items-center space-x-2.5">
-                    <div className="w-1.5 h-1.5 rounded-none bg-c-gold/60" />
-                    <div>
-                      <span className="font-sans font-medium text-c-black text-xs uppercase tracking-[1px]">24K Gold</span>
-                      <span className="text-[10px] text-gray-400 block tracking-wider mt-0.5">99.9% Purity (Fine Gold)</span>
-                    </div>
-                  </div>
-                  <div className="text-right">
-                    <span className="font-serif text-lg text-c-black font-light">
-                      {formatRate(rates?.gold24k, goldWeightUnit === "sovereign" ? 8 : 1)}
-                    </span>
-                    <span className="text-[9px] text-gray-400 block font-sans uppercase tracking-[0.5px]">For {goldWeightUnit === "sovereign" ? "8g" : "1g"}</span>
-                  </div>
-                </div>
-
-                {/* 22 Carat Gold */}
-                <div className="flex items-center justify-between py-3.5 border-b border-dashed border-gray-150 bg-c-ivory/30 px-2 rounded-none">
-                  <div className="flex items-center space-x-2.5">
-                    <div className="w-2 h-2 rounded-none bg-c-gold gold-shimmer" />
-                    <div>
-                      <span className="font-sans font-semibold text-c-black text-xs uppercase tracking-[1px]">22K Gold </span>
-                      <span className="inline-block translate-y-[-1px] ml-1.5 bg-c-gold text-white text-[8px] font-bold px-1.5 py-0.2 uppercase tracking-widest scale-90">Popular</span>
-                      <span className="text-[10px] text-gray-500 block tracking-wider mt-0.5">91.6% Purity (Ornaments Gold)</span>
-                    </div>
-                  </div>
-                  <div className="text-right">
-                    <span className="font-serif text-xl text-c-gold font-normal">
-                      {formatRate(rates?.gold22k, goldWeightUnit === "sovereign" ? 8 : 1)}
-                    </span>
-                    <span className="text-[9px] text-c-gold block font-mono uppercase tracking-[0.5px]">For {goldWeightUnit === "sovereign" ? "8g" : "1g"}</span>
-                  </div>
-                </div>
-
-                {/* 18 Carat Gold */}
-                <div className="flex items-center justify-between py-3.5">
-                  <div className="flex items-center space-x-2.5">
-                    <div className="w-1.5 h-1.5 rounded-none bg-c-gold/30" />
-                    <div>
-                      <span className="font-sans font-medium text-c-black text-xs uppercase tracking-[1px]">18K Gold</span>
-                      <span className="text-[10px] text-gray-400 block tracking-wider mt-0.5">75.0% Purity (Diamond Setting)</span>
-                    </div>
-                  </div>
-                  <div className="text-right">
-                    <span className="font-serif text-lg text-c-black font-light">
-                      {formatRate(rates?.gold18k, goldWeightUnit === "sovereign" ? 8 : 1)}
-                    </span>
-                    <span className="text-[9px] text-gray-400 block font-sans uppercase tracking-[0.5px]">For {goldWeightUnit === "sovereign" ? "8g" : "1g"}</span>
-                  </div>
-                </div>
-              </div>
-
-              {/* Subtle design trust seal */}
-              <div className="mt-6 pt-5 border-t border-gray-100 flex items-center justify-between text-xs text-gray-500">
-                <span className="flex items-center space-x-1">
-                  <CheckCircle className="w-3.5 h-3.5 text-green-500" />
-                  <span>Tamil Nadu Standard Showroom Price</span>
-                </span>
-                <span className="font-serif text-[10px] tracking-widest text-c-gold font-semibold uppercase">SRI SENTHIL guarantee</span>
-              </div>
-            </motion.div>
-
-            {/* SILVER CARD */}
-            <motion.div
-              whileHover={{ y: -3 }}
-              transition={{ duration: 0.3 }}
-              className="bg-white border border-c-gold-light/45 p-6 sm:p-8 rounded-none relative overflow-hidden"
-            >
-              <div className="absolute top-0 left-0 right-0 h-1 bg-gradient-to-r from-gray-300 via-gray-150 to-gray-300" />
-
-              <div className="flex items-center justify-between mb-8">
-                <div className="flex items-center space-x-3">
-                  <div className="w-10 h-10 rounded-none bg-c-ivory flex items-center justify-center border border-c-gold-light/25">
-                    <TrendingUp className="w-4 h-4 text-gray-500" />
-                  </div>
-                  <div>
-                    <h3 className="font-serif text-sm tracking-[2px] text-c-black font-semibold uppercase">SILVER RATE</h3>
-                    <p className="text-[10px] text-gray-400 font-sans uppercase tracking-[1px] mt-0.5">925 Sterling / 999 Pure Silver</p>
-                  </div>
-                </div>
-
-                {/* Weight Unit Selector Toggle */}
-                <div className="flex bg-c-ivory p-1 rounded-none border border-c-gold-light/10">
-                  <button
-                    id="silver-unit-gram"
-                    onClick={() => setSilverWeightUnit("gram")}
-                    className={`px-3 py-1.5 text-[9px] uppercase font-semibold tracking-[1px] rounded-none transition-all ${
-                      silverWeightUnit === "gram" 
-                        ? "bg-c-black text-white"
-                        : "text-gray-500 hover:text-c-black"
-                    }`}
-                  >
-                    1 Gram
-                  </button>
-                  <button
-                    id="silver-unit-kg"
-                    onClick={() => setSilverWeightUnit("kg")}
-                    className={`px-3 py-1.5 text-[9px] uppercase font-semibold tracking-[1px] rounded-none transition-all ${
-                      silverWeightUnit === "kg" 
-                        ? "bg-c-black text-white"
-                        : "text-gray-500 hover:text-c-black"
-                    }`}
-                  >
-                    1 KG
-                  </button>
-                </div>
-              </div>
-
-              {/* Silver Pricing Rows */}
-              <div className="space-y-4 py-3">
-                
-                {/* 1 Gram or 1 Kg rate Row */}
-                <div className="flex items-center justify-between py-5 border-b border-dashed border-gray-150 bg-c-ivory/30 px-3 rounded-none">
-                  <div className="flex items-center space-x-2.5">
-                    <div className="w-2 h-2 rounded-none bg-gray-400" />
-                    <div>
-                      <span className="font-sans font-medium text-c-black text-xs uppercase tracking-[1px]">Fine Pure Silver</span>
-                      <span className="text-[10px] text-gray-550 block tracking-wider mt-0.5">Chokki Silver 99.9% / Payal Silver 92.5%</span>
-                    </div>
-                  </div>
-                  <div className="text-right">
-                    <span className="font-serif text-xl text-c-black font-normal">
-                      {formatRate(rates?.silver, silverWeightUnit === "kg" ? 1000 : 1)}
-                    </span>
-                    <span className="text-[9px] text-gray-500 block font-sans uppercase tracking-[0.5px]">For {silverWeightUnit === "kg" ? "1 KG" : "1g"}</span>
-                  </div>
-                </div>
-
-                {/* Silver ornaments rate row */}
-                <div className="flex items-center justify-between py-3">
-                  <div className="flex items-center space-x-2.5">
-                    <div className="w-1.5 h-1.5 rounded-none bg-gray-300" />
-                    <div>
-                      <span className="font-sans text-xs text-gray-650 tracking-[0.5px]">Estimated wastage & making fee charges</span>
-                      <span className="text-[10px] text-gray-400 block tracking-wide">Varies per collection style (Starts from 4.5% or per gram)</span>
-                    </div>
-                  </div>
-                </div>
-
-              </div>
-
-              {/* Subtle design trust seal */}
-              <div className="mt-6 pt-5 border-t border-gray-100 flex items-center justify-between text-xs text-gray-500">
-                <span className="flex items-center space-x-1">
-                  <CheckCircle className="w-3.5 h-3.5 text-green-500" />
-                  <span>Real-time spot market feed connected</span>
-                </span>
-                <span className="font-serif text-[10px] tracking-widest text-gray-400 uppercase font-semibold">SRI SENTHIL pure grade</span>
-              </div>
-            </motion.div>
-
-          </div>
-
-          {/* Timing details/auto-refresh feedback info bar */}
-          <div className="mt-10 flex flex-col sm:flex-row items-center justify-center gap-4 text-xs text-gray-500 font-medium bg-white border border-c-gold-light/20 max-w-lg mx-auto py-3 px-6 rounded-none shadow-none">
-            <span className="flex items-center space-x-1.5">
-              <span className="w-2 h-2 rounded-full bg-green-500 animate-ping" />
-              <span className={`${rateError ? "bg-red-100 text-red-800" : loadingRates ? "bg-c-ivory text-c-gold" : "bg-green-100 text-green-800"} font-bold px-1.5 py-0.5 rounded-none text-[9px] uppercase tracking-wider`}>{rateError ? "API Error" : loadingRates ? "Loading" : "Updated Live"}</span>
-            </span>
-            <span className="hidden sm:inline text-gray-250">|</span>
-            <span className="uppercase tracking-[0.5px]">Source: {rates?.source || (loadingRates ? "Fetching Live API" : "Live Bullion API")}</span>
-            <span className="hidden sm:inline text-gray-250">|</span>
-            <div className="flex items-center space-x-1 uppercase tracking-[0.5px]">
-              <Clock className="w-3.5 h-3.5 text-c-gold" />
-              <span>As of: {rates?.lastUpdated || (loadingRates ? "Loading..." : lastRefreshedAt.toLocaleTimeString())}</span>
-            </div>
-            
-            <button
-              id="refresh-rates-manually"
-              onClick={() => fetchLiveRates(true)}
-              className="ml-0 sm:ml-2 text-c-gold hover:text-c-gold/80 flex items-center space-x-1 text-xs uppercase tracking-wider font-semibold transition focus:outline-none"
-              disabled={isRefreshing}
-            >
-              <RefreshCw className={`w-3.5 h-3.5 ${isRefreshing ? "animate-spin" : ""}`} />
-              <span>{isRefreshing ? "Syncing..." : "Refresh"}</span>
-            </button>
-          </div>
-
-          {/* Prompt/Advisory note */}
-          <p className="text-center text-[10px] text-gray-450 max-w-md mx-auto mt-6 uppercase tracking-[0.5px]">
-            *Fluctuates multiple times daily based on global bullion exchanges. Showroom final price depends on craft weight.
-          </p>
-
-        </div>
-      </section>
-
       {/* Gold Section */}
       <section id="gold-section" className="py-24 bg-white relative scroll-mt-10 border-b border-c-gold-light/10">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -850,12 +495,12 @@ export default function App() {
               </p>
             </div>
 
-            {/* Live Rate Counter teaser */}
+            {/* Trust badge */}
             <div className="mt-4 md:mt-0 bg-c-ivory border border-c-gold-light/35 p-4 rounded-none flex items-center space-x-3.5">
               <Award className="w-8 h-8 text-c-gold shrink-0" />
               <div>
-                <p className="text-[10px] text-c-gold font-bold uppercase tracking-wider">SHOWROOM 22K RATE</p>
-                <p className="font-serif text-base font-normal text-c-black">{formatRate(rates?.gold22k)} / Gram</p>
+                <p className="text-[10px] text-c-gold font-bold uppercase tracking-wider">BIS 916 Gold</p>
+                <p className="font-serif text-base font-normal text-c-black">Hallmarked Ornaments</p>
               </div>
             </div>
           </div>
@@ -979,7 +624,7 @@ export default function App() {
                         id={`enquire-gold-${product.id}`}
                         onClick={() => {
                           setEnquiryProduct(product);
-                          setEnquiryCustomText(`Hello, kindly share the estimated pricing of ${product.title} based on today's live rate.`);
+                          setEnquiryCustomText(`Hello, kindly share the showroom pricing and availability for ${product.title}.`);
                         }}
                         className="flex-1 bg-c-black hover:bg-c-gold text-white hover:text-white text-[10px] uppercase tracking-[1.5px] font-semibold py-3 text-center border border-c-black hover:border-c-gold transition duration-250 rounded-none focus:outline-none"
                       >
@@ -1024,12 +669,12 @@ export default function App() {
               </p>
             </div>
 
-            {/* Live Rate Counter teaser */}
+            {/* Trust badge */}
             <div className="mt-4 md:mt-0 bg-white border border-c-gold-light/25 p-4 rounded-none flex items-center space-x-3.5">
-              <TrendingUp className="w-8 h-8 text-gray-400 shrink-0" />
+              <ShieldCheck className="w-8 h-8 text-gray-400 shrink-0" />
               <div>
-                <p className="text-[10px] text-c-gold font-bold uppercase tracking-wider">SHOWROOM SILVER RATE</p>
-                <p className="font-serif text-base font-normal text-c-black">{formatRate(rates?.silver)} / Gram</p>
+                <p className="text-[10px] text-c-gold font-bold uppercase tracking-wider">Certified Silver</p>
+                <p className="font-serif text-base font-normal text-c-black">925 & 999 Purity</p>
               </div>
             </div>
           </div>
@@ -1134,7 +779,7 @@ export default function App() {
                         id={`enquire-silver-${product.id}`}
                         onClick={() => {
                           setEnquiryProduct(product);
-                          setEnquiryCustomText(`Hello, interested in ordering ${product.title} from your Silver Collection. Kindly details weight pricing.`);
+                          setEnquiryCustomText(`Hello, interested in ordering ${product.title} from your Silver Collection. Kindly share weight and showroom pricing details.`);
                         }}
                         className="flex-1 bg-c-black hover:bg-c-gold text-white hover:text-white text-[10px] uppercase tracking-[1.5px] font-semibold py-3 text-center border border-c-black hover:border-c-gold transition duration-250 rounded-none focus:outline-none"
                       >
@@ -1523,7 +1168,7 @@ export default function App() {
               <h3 className="font-sans text-xs uppercase tracking-widest font-semibold text-[#FAF9F5] mb-5">Navigation</h3>
               <ul className="space-y-2.5 text-xs font-sans">
                 <li><a href="#hero-showroom-section" className="hover:text-c-gold transition">Home Showroom</a></li>
-                <li><a href="#live-rates-section" className="hover:text-c-gold transition">Gold & Silver Rates</a></li>
+                <li><a href="#collections-section" className="hover:text-c-gold transition">Collections</a></li>
                 <li><a href="#gold-section" className="hover:text-c-gold transition">Gold jewellery</a></li>
                 <li><a href="#silver-section" className="hover:text-c-gold transition">Silver Valuable articles</a></li>
               </ul>
@@ -1733,4 +1378,3 @@ export default function App() {
     </div>
   );
 }
-
