@@ -463,9 +463,9 @@ export default function App() {
             </span>
 
             {/* Main Headline */}
-            <h1 className="font-serif text-4xl sm:text-5xl md:text-6xl lg:text-[72px] font-light tracking-tight text-c-black leading-[1.05] mb-6">
-              Timeless Jewellery<br />
-              <span className="font-serif italic font-normal text-c-gold">Crafted with Trust</span>
+            <h1 className="font-cinzel text-4xl sm:text-5xl md:text-6xl lg:text-[72px] font-medium tracking-[0.08em] text-c-black leading-[1.05] mb-6 uppercase">
+              Sri Senthik<br />
+              <span className="text-c-gold">Jewellery</span>
             </h1>
 
             {/* Subtext */}
