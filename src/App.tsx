@@ -165,7 +165,7 @@ export default function App() {
       {/* Top Banner */}
       <div className="bg-c-black text-c-ivory px-4 py-2.5 text-center text-[10px] tracking-[3px] uppercase flex items-center justify-center space-x-4 border-b border-c-gold-light/10">
         <Sparkles className="w-3.5 h-3.5 text-gold-300 animate-pulse" />
-        <span>Trusted Jewellery Collections Since 1989</span>
+        <span>Trusted Jewellery Collections Since 2004</span>
         <span className="hidden md:inline text-gold-300">•</span>
         <span className="hidden md:inline text-gold-300 font-semibold">Trusted Gold & Silver Collections</span>
         <span className="hidden md:inline text-gold-300">•</span>
@@ -1144,7 +1144,7 @@ export default function App() {
                 </span>
               </div>
               <p className="text-xs text-gray-500 leading-relaxed text-left font-sans">
-                Komarapalayam&apos;s trusted destination since 1989. Forging precious golden moments and elegant silver memories.
+                Komarapalayam&apos;s trusted destination since 2004. Forging precious golden moments and elegant silver memories.
               </p>
             </div>
 
