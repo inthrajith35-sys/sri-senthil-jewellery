@@ -77,7 +77,7 @@ export default function App() {
   const triggerWhatsAppEnquiry = (product: Product, customMsg = "") => {
     const messageText = customMsg 
       ? customMsg 
-      : `Hello Sri Senthil Jewellery, I am interested in seeking more details about "${product.title}" (${product.category}, Weight: ${product.weight}, Purity: ${product.purity}). Please guide me with showroom pricing and availability.`;
+      : `Hello Sri Senthil Jewellery, I am interested in seeking more details about "${product.title}" (${product.category}, Weight: ${product.weight}). Please guide me with showroom pricing and availability.`;
     
     const encodeText = encodeURIComponent(messageText);
     const whatsappUrl = `https://wa.me/${WHATSAPP_NUMBER}?text=${encodeText}`;
@@ -96,7 +96,6 @@ export default function App() {
       `*Product:* ${enquiryProduct.title}\n` +
       `*Category:* ${enquiryProduct.category}\n` +
       `*Weight:* ${enquiryProduct.weight}\n` +
-      `*Purity:* ${enquiryProduct.purity}\n` +
       `*Note:* ${enquiryCustomText || "Interested in viewing and showroom pricing."}`;
       
     setEnquirySuccess(true);
@@ -167,7 +166,7 @@ export default function App() {
       {/* Top Banner */}
       <div className="bg-c-black text-c-ivory px-4 py-2.5 text-center text-[10px] tracking-[3px] uppercase flex items-center justify-center space-x-4 border-b border-c-gold-light/10">
         <Sparkles className="w-3.5 h-3.5 text-gold-300 animate-pulse" />
-        <span>100% BIS Hallmarked Pure Gold Since 1989</span>
+        <span>Trusted Jewellery Collections Since 1989</span>
         <span className="hidden md:inline text-gold-300">•</span>
         <span className="hidden md:inline text-gold-300 font-semibold">Trusted Gold & Silver Collections</span>
         <span className="hidden md:inline text-gold-300">•</span>
@@ -380,7 +379,7 @@ export default function App() {
           <div className="max-w-2xl">
             {/* Design Spec Tagline */}
             <span className="font-sans text-[11px] sm:text-xs text-c-gold tracking-[4px] uppercase font-semibold mb-5 block">
-              Since 2004 | BIS 916 Hallmarked
+              Since 2004 | Traditional Craftsmanship
             </span>
 
             {/* Main Headline */}
@@ -412,11 +411,11 @@ export default function App() {
               </a>
             </div>
 
-            {/* Hallmark badging */}
+            {/* Trust badging */}
             <div className="mt-12 flex items-center space-x-4 border-t border-c-gold-light/20 pt-6">
               <div className="flex items-center space-x-2 text-xs text-gray-500 font-medium font-sans uppercase tracking-[1px]">
                 <Award className="w-5 h-5 text-c-gold" />
-                <span>100% BIS 916 Hallmark Purity</span>
+                <span>Handpicked Gold Collections</span>
               </div>
               <span className="text-c-gold-light">|</span>
               <div className="flex items-center space-x-2 text-xs text-gray-500 font-medium font-sans uppercase tracking-[1px]">
@@ -491,7 +490,7 @@ export default function App() {
                 Exclusive Gold Jewellery
               </h2>
               <p className="text-gray-550 font-sans text-xs sm:text-sm mt-2 max-w-xl">
-                Exquisite 22 Carat BIS 916 Hallmarked creations. Handcrafted bridal, antique, traditional temple, and sleek lightweight ornaments.
+                Exquisite gold creations. Handcrafted bridal, antique, traditional temple, and sleek lightweight ornaments.
               </p>
             </div>
 
@@ -499,8 +498,8 @@ export default function App() {
             <div className="mt-4 md:mt-0 bg-c-ivory border border-c-gold-light/35 p-4 rounded-none flex items-center space-x-3.5">
               <Award className="w-8 h-8 text-c-gold shrink-0" />
               <div>
-                <p className="text-[10px] text-c-gold font-bold uppercase tracking-wider">BIS 916 Gold</p>
-                <p className="font-serif text-base font-normal text-c-black">Hallmarked Ornaments</p>
+                <p className="text-[10px] text-c-gold font-bold uppercase tracking-wider">Gold Collection</p>
+                <p className="font-serif text-base font-normal text-c-black">Handcrafted Ornaments</p>
               </div>
             </div>
           </div>
@@ -592,10 +591,10 @@ export default function App() {
                           referrerPolicy="no-referrer"
                           className="object-cover w-full h-full transition-transform duration-700 ease-out group-hover:scale-105"
                         />
-                        {/* Hallmark overlay tag */}
+                        {/* Collection overlay tag */}
                         <div className="absolute top-2.5 left-2.5 bg-c-black/85 backdrop-blur-xs text-white py-1 px-2.5 text-[9px] font-bold uppercase tracking-[1.5px] rounded-none flex items-center space-x-1 shadow-sm">
                           <CheckCircle className="w-3.5 h-3.5 text-c-gold" />
-                          <span>BIS 916</span>
+                          <span>Gold</span>
                         </div>
                         {/* Pure Weight banner */}
                         <div className="absolute bottom-2.5 right-2.5 bg-white text-c-black py-1 px-2.5 text-[10px] font-semibold tracking-wider rounded-none border border-c-gold-light/20 shadow-xs">
@@ -610,9 +609,6 @@ export default function App() {
                       <h3 className="font-serif text-base font-normal tracking-wide text-c-black group-hover:text-c-gold transition-colors">
                         {product.title}
                       </h3>
-                      <p className="text-[10px] text-gray-400 font-sans tracking-wide mt-1 uppercase mt-0.5">
-                        Purity: {product.purity}
-                      </p>
                       <p className="text-gray-500 text-xs mt-2.5 leading-relaxed leading-relaxed font-sans">
                         {product.description}
                       </p>
@@ -659,13 +655,13 @@ export default function App() {
           <div className="flex flex-col md:flex-row items-start md:items-end justify-between mb-12 pb-5 border-b border-c-gold-light/20">
             <div>
               <span className="text-[11px] tracking-[4px] text-c-gold font-semibold uppercase block mb-3">
-                Sterling Purity & Glow
+                Sterling Glow
               </span>
               <h2 className="font-serif text-3xl sm:text-4xl font-light tracking-tight text-c-black uppercase">
                 Premium Silver Articles
               </h2>
               <p className="text-gray-550 font-sans text-xs sm:text-sm mt-2 max-w-xl">
-                Select 92.5 Sterling and 99.0 Pure silver collection. Exclusive bridal anklets, high-finish god lamps/pooja vessels, and majestic gift valuables.
+                Select premium silver collections. Exclusive bridal anklets, high-finish god lamps, pooja vessels, and majestic gift valuables.
               </p>
             </div>
 
@@ -673,8 +669,8 @@ export default function App() {
             <div className="mt-4 md:mt-0 bg-white border border-c-gold-light/25 p-4 rounded-none flex items-center space-x-3.5">
               <ShieldCheck className="w-8 h-8 text-gray-400 shrink-0" />
               <div>
-                <p className="text-[10px] text-c-gold font-bold uppercase tracking-wider">Certified Silver</p>
-                <p className="font-serif text-base font-normal text-c-black">925 & 999 Purity</p>
+                <p className="text-[10px] text-c-gold font-bold uppercase tracking-wider">Silver Collection</p>
+                <p className="font-serif text-base font-normal text-c-black">Pooja & Gift Articles</p>
               </div>
             </div>
           </div>
@@ -747,10 +743,10 @@ export default function App() {
                           referrerPolicy="no-referrer"
                           className="object-cover w-full h-full transition-transform duration-700 ease-out group-hover:scale-105"
                         />
-                        {/* Hallmark overlay tag */}
+                        {/* Collection overlay tag */}
                         <div className="absolute top-2.5 left-2.5 bg-c-black/85 backdrop-blur-xs text-white py-1 px-2.5 text-[9px] font-bold uppercase tracking-[1.5px] rounded-none flex items-center space-x-1 shadow-sm">
                           <CheckCircle className="w-3.5 h-3.5 text-c-gold" />
-                          <span>92.5 Sterling</span>
+                          <span>Silver</span>
                         </div>
                         {/* Pure Weight banner */}
                         <div className="absolute bottom-2.5 right-2.5 bg-white text-c-black py-1 px-2.5 text-[10px] font-semibold tracking-wider rounded-none border border-c-gold-light/20 shadow-xs">
@@ -765,9 +761,6 @@ export default function App() {
                       <h3 className="font-serif text-base font-normal tracking-wide text-c-black group-hover:text-c-gold transition-colors">
                         {product.title}
                       </h3>
-                      <p className="text-[10px] text-gray-400 font-sans tracking-wide mt-1 uppercase mt-0.5">
-                        Grade: {product.purity}
-                      </p>
                       <p className="text-gray-500 text-xs mt-2.5 leading-relaxed leading-relaxed font-sans">
                         {product.description}
                       </p>
@@ -895,8 +888,8 @@ export default function App() {
             <div className="lg:col-span-5 space-y-4">
               <div className="relative h-[320px] rounded-none overflow-hidden border border-c-gold-light/30 bg-[#FAF9F5]/30">
                 <img
-                  src="/gold-products/bis-hallmark-necklace.webp"
-                  alt="BIS hallmarked gold necklace at Sri Senthil Jewellery"
+                  src="/gold-products/generational-legacy-necklace.png"
+                  alt="Gold necklace at Sri Senthil Jewellery"
                   loading="lazy"
                   decoding="async"
                   referrerPolicy="no-referrer"
@@ -908,11 +901,11 @@ export default function App() {
                 <div className="absolute bottom-4 left-4 right-4 bg-white/95 border border-c-gold-light/20 p-4 rounded-none">
                   <div className="flex items-center space-x-3">
                     <div className="w-10 h-10 rounded-none bg-c-ivory flex items-center justify-center font-serif text-c-gold border border-c-gold-light/35 font-bold text-xs shrink-0">
-                      916
+                      SSJ
                     </div>
                     <div>
-                      <h4 className="font-sans text-xs font-semibold text-c-black tracking-wider uppercase">BIS Hallmark Certified</h4>
-                      <p className="text-[10px] text-gray-500 font-sans">Every single gold gram carries authentic laser stamp.</p>
+                      <h4 className="font-sans text-xs font-semibold text-c-black tracking-wider uppercase">Trusted Craftsmanship</h4>
+                      <p className="text-[10px] text-gray-500 font-sans">Every design is selected with care for lasting beauty.</p>
                     </div>
                   </div>
                 </div>
@@ -940,17 +933,17 @@ export default function App() {
             {/* Premium Narration */}
             <div className="lg:col-span-7 space-y-6">
               <span className="text-[11px] tracking-[4px] text-c-gold font-semibold uppercase block">
-                Purely Generational Legacy
+                Generational Legacy
               </span>
               <h2 className="font-serif text-3xl sm:text-4xl font-light tracking-tight text-c-black uppercase">
-                Purity of Character, Grandeur of Handcraft
+                Grandeur of Handcraft
               </h2>
               <p className="text-gray-550 text-xs sm:text-sm leading-relaxed font-sans">
-                At **Sri Senthil Jewellery**, we do not merely trade metals—we carve cultural timelines and familial memory boxes of gold and silver. For more than three decades, our showroom has remained the premier destination for discerning families who refuse to compromise on purity.
+                At Sri Senthil Jewellery, we do not merely trade metals; we carve cultural timelines and familial memory boxes of gold and silver. For more than three decades, our showroom has remained a destination for discerning families who value craft and trust.
               </p>
               
               <p className="text-gray-450 text-xs leading-relaxed">
-                Whether you are decorating an elaborate bridal dowry, picking lightweight rings for corporate wear, or honoring heritage with pure silver pooja items, we represent absolute precision. Every gold ornament is guaranteed **22K BIS 916 Hallmark** and every silver asset is backed by sterling validation checks.
+                Whether you are decorating an elaborate bridal dowry, picking lightweight rings for corporate wear, or honoring heritage with silver pooja items, our team helps you choose pieces with precision and care.
               </p>
 
               {/* Grid of Seals */}
@@ -958,7 +951,7 @@ export default function App() {
                 <div className="flex items-start space-x-3">
                   <CheckCircle className="w-4 h-4 text-c-gold shrink-0 mt-0.5" />
                   <div>
-                    <h4 className="font-sans text-xs font-semibold text-c-black uppercase tracking-wider">Zero-Compromise Purity</h4>
+                    <h4 className="font-sans text-xs font-semibold text-c-black uppercase tracking-wider">Careful Selection</h4>
                     <p className="text-[11px] text-gray-500 mt-0.5 font-sans">Tested through accurate computerized caratometers.</p>
                   </div>
                 </div>
@@ -1159,7 +1152,7 @@ export default function App() {
                 </span>
               </div>
               <p className="text-xs text-gray-500 leading-relaxed text-left font-sans">
-                Komarapalayam&apos;s hallmark destination since 1989. Forging precious golden moments and absolute sterling silver purity.
+                Komarapalayam&apos;s trusted destination since 1989. Forging precious golden moments and elegant silver memories.
               </p>
             </div>
 
@@ -1174,17 +1167,17 @@ export default function App() {
               </ul>
             </div>
 
-            {/* Quality Seals */}
+            {/* Service Highlights */}
             <div className="text-left">
-              <h3 className="font-sans text-xs uppercase tracking-widest font-semibold text-[#FAF9F5] mb-5">Purity Stamps</h3>
+              <h3 className="font-sans text-xs uppercase tracking-widest font-semibold text-[#FAF9F5] mb-5">Service Highlights</h3>
               <ul className="space-y-2.5 text-xs text-gray-500 font-sans">
                 <li className="flex items-center space-x-2">
                   <span className="w-1 h-1 rounded-none bg-c-gold" />
-                  <span>BIS 916 Hallmark Standard</span>
+                  <span>Handpicked Gold Collections</span>
                 </li>
                 <li className="flex items-center space-x-2">
                   <span className="w-1 h-1 rounded-none bg-c-gold" />
-                  <span>925 Sterling Silver Guarantee</span>
+                  <span>Premium Silver Articles</span>
                 </li>
                 <li className="flex items-center space-x-2">
                   <span className="w-1 h-1 rounded-none bg-c-gold" />
@@ -1213,11 +1206,11 @@ export default function App() {
 
           {/* Legal bottom bar */}
           <div className="pt-8 border-t border-white/5 text-center md:text-left md:flex md:items-center md:justify-between text-[11px] text-gray-650 font-sans">
-            <p>© {new Date().getFullYear()} Sri Senthil Jewellery. All Rights Reserved. Fully BIS Hallmarked Gold standard.</p>
+            <p>© {new Date().getFullYear()} Sri Senthil Jewellery. All Rights Reserved.</p>
             <div className="mt-4 md:mt-0 flex justify-center space-x-5">
               <a href="mailto:info@srisenthiljewellers.com?subject=Privacy%20Policy%20Request" className="hover:text-c-gold transition hover:underline">Privacy Policy</a>
               <a href="mailto:info@srisenthiljewellers.com?subject=Terms%20of%20Purchase%20Request" className="hover:text-c-gold transition hover:underline">Terms of Purchase</a>
-              <a href="https://www.bis.gov.in/" target="_blank" rel="noopener noreferrer" className="hover:text-c-gold transition hover:underline">BIS Hallmark Registry</a>
+              <a href="#contact-section" className="hover:text-c-gold transition hover:underline">Showroom Contact</a>
             </div>
           </div>
 
@@ -1285,7 +1278,6 @@ export default function App() {
                   <div>
                     <h4 className="font-serif text-sm font-semibold text-c-black">{enquiryProduct.title}</h4>
                     <p className="text-[10px] text-gray-500 font-sans mt-0.5 font-normal">Category: {enquiryProduct.category} | Weight: {enquiryProduct.weight}</p>
-                    <p className="text-[10px] text-c-gold font-semibold font-sans mt-0.5">{enquiryProduct.purity}</p>
                   </div>
                 </div>
 
@@ -1336,7 +1328,7 @@ export default function App() {
                   </div>
 
                   <p className="text-[10px] text-gray-400 font-sans leading-relaxed">
-                    *Upon clicking Submit, we will securely generate a copyable high-purity premium enquiry voucher and connect you with our Komarapalayam showroom supervisor via WhatsApp.
+                    *Upon clicking Submit, we will securely generate a copyable premium enquiry voucher and connect you with our Komarapalayam showroom supervisor via WhatsApp.
                   </p>
 
                   <div className="pt-4 flex items-center justify-end space-x-2.5">
