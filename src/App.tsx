@@ -590,11 +590,12 @@ export default function App() {
                           referrerPolicy="no-referrer"
                           className="object-cover w-full h-full transition-transform duration-700 ease-out group-hover:scale-105"
                         />
-                        {/* Collection overlay tag */}
-                        <div className="absolute top-2.5 left-2.5 bg-c-black/85 backdrop-blur-xs text-white py-1 px-2.5 text-[9px] font-bold uppercase tracking-[1.5px] rounded-none flex items-center space-x-1 shadow-sm">
-                          <CheckCircle className="w-3.5 h-3.5 text-c-gold" />
-                          <span>Gold</span>
-                        </div>
+                        {!["Elegant Royal Haram", "Sovereign Gold Chain", "Imperial Ruby Ring"].includes(product.title) && (
+                          <div className="absolute top-2.5 left-2.5 bg-c-black/85 backdrop-blur-xs text-white py-1 px-2.5 text-[9px] font-bold uppercase tracking-[1.5px] rounded-none flex items-center space-x-1 shadow-sm">
+                            <CheckCircle className="w-3.5 h-3.5 text-c-gold" />
+                            <span>Gold</span>
+                          </div>
+                        )}
                       </div>
 
                       {/* Info description block */}
