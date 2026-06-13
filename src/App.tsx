@@ -459,12 +459,12 @@ export default function App() {
           <div className="max-w-2xl">
             {/* Design Spec Tagline */}
             <span className="font-sans text-[11px] sm:text-xs text-c-gold tracking-[4px] uppercase font-semibold mb-5 block">
-              Since 1984 | BIS 916 Hallmarked
+              Since 2004 | BIS 916 Hallmarked
             </span>
 
             {/* Main Headline */}
             <h1 className="font-cinzel text-4xl sm:text-5xl md:text-6xl lg:text-[72px] font-medium tracking-[0.08em] text-c-black leading-[1.05] mb-6 uppercase">
-              Sri Senthik<br />
+              Sri Senthil<br />
               <span className="text-c-gold">Jewellery</span>
             </h1>
 
